@@ -66,3 +66,50 @@ next_state <= current_state; -- lo inicializamos para que no de errores
       end case;
 end process;
 
+movimiento_motor :process(current_state,boton_espera_FSM)
+begin
+case current_state is
+    when inicio =>
+        --piso_actual<="001";--inicializamos al piso 1
+        if boton_espera_FSM/="10" then -- puertas cerradas
+            signal_puerta_FSM<="10";--mandamos la señal de abrir
+        end if;
+        if planta_actual_FSM /= "001" and boton_espera_FSM="01" then --si no estamos en la primera y las puertas estan cerradas 
+            signal_ascensor_FSM<="01"; --bajamos hasta estar en la planta 1
+            signal_puerta_FSM<="00";-- las puertas no se mueven, el ascensor esta en marcha
+         else --si estamos en la planta 1 y las puertas abiertas
+            signal_ascensor_FSM<="00";
+            signal_puerta_FSM<="00"; --no movemos puertas ni motor
+         end if;
+         
+     when marcha =>
+     		
+				if (destino_i > planta_actual_FSM) then--quiero subir
+					signal_ascensor_FSM <= "10";	-- señal Subir
+				elsif (destino_i < planta_actual_FSM ) then --quiero bajar
+					signal_ascensor_FSM <= "01"; 	-- señal Bajar
+				else
+					signal_ascensor_FSM <= "00"; 	--stdby
+				end if;		
+				signal_puerta_FSM <= "00";	--mantenemos el estado de cerrado 
+
+			when abrir => 
+				signal_puerta_FSM <= "10"; 		--Abrir puerta
+				signal_ascensor_FSM <=  "00"; 		       --motor en stdby mientras se abre la puerta
+
+			when cerrar => 
+				signal_puerta_FSM <= "01";	     --Cerrar puerta;
+				signal_ascensor_FSM <= "00";		     --motor en stdby mientras se cierra la puerta
+
+			when espera => 
+				signal_puerta_FSM <= "00"; 	--Puerta stdby
+				signal_ascensor_FSM<= "00";  --motor stdby
+
+			when others => 	--Por defecto stdby
+				signal_ascensor_FSM <= "00";
+				signal_puerta_FSM <= "00";
+		end case;
+end process;
+destino_planta<=destino_i;
+      
+end Behavioral;
