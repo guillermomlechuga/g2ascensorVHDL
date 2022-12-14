@@ -29,8 +29,8 @@ entity TOP is
            BOTON_PLANTA : in STD_LOGIC_VECTOR (6 downto 0);
            CLK : in STD_LOGIC;
            PANTALLA : out STD_LOGIC_VECTOR (6 downto 0);
-           LUZ_PUERTA : out STD_LOGIC;
-           LUZ_MOTOR : out STD_LOGIC);
+           LUZ_PUERTA : out STD_LOGIC_VECTOR (1 downto 0);
+           LUZ_MOTOR : out STD_LOGIC_VECTOR (1 downto 0));
 end TOP;
 
 architecture structural of TOP is
@@ -225,4 +225,9 @@ begin
         boton_planta => planta_TOP,
         planta => planta_actual_FSM_TOP
         );
+        
+        
+        LUZ_PUERTA<=signal_puerta_FSM_TOP;
+        LUZ_MOTOR<=motor_ascensor_TOP;
+        
 end structural;
