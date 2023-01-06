@@ -9,7 +9,6 @@ PORT (
    CLK : in std_logic; 
    planta_FSM: in std_logic_vector(2 downto 0); 
    planta_actual_FSM:in std_logic_vector(2 downto 0);
-   detecta_persona: in std_logic;
    boton_fisico_FSM:in std_logic;
    boton_espera_FSM: in std_logic_vector(1 downto 0); --10 abierto, 01 cerrado, 00 stdby
    signal_ascensor_FSM: out std_logic_vector(1 downto 0);--10 subir, 01 bajar,00 stdby
