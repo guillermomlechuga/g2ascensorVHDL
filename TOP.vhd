@@ -24,7 +24,6 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity TOP is
     Port ( RESET_N : in STD_LOGIC;
-           DETECTA_PERSONA : in STD_LOGIC;
            BOTON_FISICO_TOP : in STD_LOGIC;
            BOTON_PLANTA : in STD_LOGIC_VECTOR (6 downto 0);
            CLK : in STD_LOGIC;
@@ -80,7 +79,6 @@ architecture structural of TOP is
         RESET_N: in std_logic;
         boton_espera_FSM : in std_logic_vector (1 downto 0);
         boton_fisico_FSM : in std_logic; 
-        detecta_persona : in std_logic;
         planta_FSM: in std_logic_vector (2 downto 0);
         planta_actual_FSM : in std_logic_vector (2 downto 0);
         destino_planta : out std_logic_vector (2 downto 0);
@@ -176,7 +174,6 @@ begin
         boton_espera_FSM =>boton_espera_FSM_TOP,
         planta_actual_FSM =>planta_actual_FSM_TOP,
         boton_fisico_FSM=> BOTON_FISICO_TOP,
-        detecta_persona => DETECTA_PERSONA,
         signal_ascensor_FSM => signal_ascensor_TOP,
         signal_puerta_FSM => signal_puerta_TOP
         );
