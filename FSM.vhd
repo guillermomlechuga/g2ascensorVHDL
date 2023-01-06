@@ -50,7 +50,7 @@ next_state <= current_state; -- lo inicializamos para que no de errores
         end if;
         when espera=>
             if planta_FSM /= "000" and planta_actual_FSM/= planta_FSM then --si pulsas un boton y no es en el que estas
-               destino_i:=planta_FSM;--guardamos el piso pulsado
+              -- destino_i:=planta_FSM;--guardamos el piso pulsado
                 next_state<=cerrar;
             end if;
         when cerrar=>
@@ -60,6 +60,7 @@ next_state <= current_state; -- lo inicializamos para que no de errores
                 next_state<=marcha;
             end if;
          when marcha=>
+            destino_i:=planta_FSM;
             if destino_i=planta_actual_FSM then --si estamos en el piso al que queremos ir 
                 next_state<=abrir;
             end if;

@@ -25,9 +25,11 @@ use ieee.std_logic_arith.ALL;
 use ieee.std_logic_unsigned.ALL;
 
 entity E_PLANTA is
-    Port ( RESET_N : in STD_LOGIC;
+    Port ( 
+           destino_piso: in std_logic_vector(2 downto 0);--piso destino que le llega de la fsm
+           RESET_N : in STD_LOGIC;
            CLK : in STD_LOGIC;
-            SUBIR_BAJAR : in STD_LOGIC_VECTOR (1 downto 0);
+           SUBIR_BAJAR : in STD_LOGIC_VECTOR (1 downto 0);
            PLANTA : out STD_LOGIC_VECTOR (6 downto 0));
 end E_PLANTA;
 
@@ -39,9 +41,9 @@ begin
 if reset_n = '0' then
 			p_actual <= "001";
 		elsif rising_edge (clk) then
-			if SUBIR_BAJAR = "10" and p_actual /= "111" then-- subir
+			if SUBIR_BAJAR = "10" and p_actual /= "111" and p_actual/=destino_piso then-- subir
 				p_actual <= p_actual +1;--hemos subido una planta
-			elsif SUBIR_BAJAR = "01" and p_actual /= "001" then--bajar
+			elsif SUBIR_BAJAR = "01" and p_actual /= "001" and p_actual/=destino_piso then--bajar
 				p_actual <= p_actual -1 ;--hemos bajado una planta
 			elsif SUBIR_BAJAR ="00" then p_actual<=p_actual; -- no nos movemos
 			end if;
