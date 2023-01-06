@@ -71,8 +71,8 @@ begin
 case current_state is
     when inicio =>
         --piso_actual<="001";--inicializamos al piso 1
-        if boton_espera_FSM/="10" then -- puertas cerradas
-            signal_puerta_FSM<="10";--mandamos la señal de abrir
+        if boton_espera_FSM/="01" then -- puertas cerradas
+            signal_puerta_FSM<="01";--mandamos la señal de abrir
         end if;
         if planta_actual_FSM /= "001" and boton_espera_FSM="01" then --si no estamos en la primera y las puertas estan cerradas 
             signal_ascensor_FSM<="01"; --bajamos hasta estar en la planta 1
