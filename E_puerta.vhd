@@ -35,7 +35,7 @@ begin
 process (clk, reset_n)
     begin 
         if reset_n= '0' then 
-            boton_wait <= "10";--pulsando boton
+            boton_wait <= "01";--pulsando boton
         elsif rising_edge (clk) then
             if E_motor_puerta = "00" then 
             boton_wait <= boton_wait; --abrir puerta 
